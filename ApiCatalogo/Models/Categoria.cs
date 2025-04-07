@@ -29,6 +29,7 @@ namespace ApiCatalogo.Models
         public string? ImagemUrl { get; set; }
 
         //propiedade de navegação
+        
         public ICollection<Produto>? Produtos { get; set; }
 
     }

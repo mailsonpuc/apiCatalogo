@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ApiCatalogo.Models
@@ -35,6 +36,9 @@ namespace ApiCatalogo.Models
 
         //um produto esta relacionado a uma categoria
         public int CategoriaId { get; set; }
+
+        //ignorando json
+        [JsonIgnore]
         public Categoria? Categoria { get; set; }
     }
 }

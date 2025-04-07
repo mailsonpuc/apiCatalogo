@@ -24,7 +24,7 @@ namespace ApiCatalogo.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Produto>> Get()
         {
-            var produtos = _context.Produtos?.ToList();
+            var produtos = _context.Produtos?.AsNoTracking().ToList();
             if (produtos is null)
             {
                 return NotFound("produtos não encotrado");
