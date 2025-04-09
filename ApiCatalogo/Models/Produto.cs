@@ -14,25 +14,43 @@ namespace ApiCatalogo.Models
         [Key]
         public int ProdutoId { get; set; }
 
-        [Required]
-        [StringLength(80)]
+        
+
+        [Required(ErrorMessage = "O nome é obrigatório.")]
+        [StringLength(80, ErrorMessage = "O nome deve ter no máximo 80 caracteres.")]
+        [MinLength(5, ErrorMessage = "O nome deve ter no mínimo 5 caracteres.")]
         public string? Nome { get; set; }
 
-        [Required]
-        [StringLength(300)]
+        
+
+
+        [Required(ErrorMessage = "A descrrição é obrigatório.")]
+        [StringLength(80, ErrorMessage = "O nome deve ter no máximo 80 caracteres.")]
+        [MinLength(5, ErrorMessage = "O nome deve ter no mínimo 5 caracteres.")]
         public string? Descricao { get; set; }
+
+
 
         [Required]
         [Column(TypeName = "decimal(10,2)")]
         public decimal Preco { get; set; }
 
-        [Required]
-        [StringLength(300)]
+
+
+ 
+
+        [Required(ErrorMessage = "O nome é obrigatório.")]
+        [StringLength(80, ErrorMessage = "O nome deve ter no máximo 80 caracteres.")]
+        [MinLength(5, ErrorMessage = "O nome deve ter no mínimo 5 caracteres.")]
         public string? ImagemUrl { get; set; }
 
         
         public float Estoque { get; set; }
+
+
         public DateTime Datacadastro { get; set; }
+
+        
 
         //um produto esta relacionado a uma categoria
         public int CategoriaId { get; set; }
