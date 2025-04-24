@@ -1,0 +1,295 @@
+{
+	"info": {
+		"_postman_id": "3611d51f-8f31-4ef2-aee5-5e6ea928fda4",
+		"name": "apiCatalogo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40348258"
+	},
+	"item": [
+		{
+			"name": "Produto",
+			"item": [
+				{
+					"name": "GetProdutos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5109/api/Produtos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5109",
+							"path": [
+								"api",
+								"Produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ObterProdutoPorId",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5109/api/Produtos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5109",
+							"path": [
+								"api",
+								"Produtos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CriarProduto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n       \n        \"nome\": \"teste\",\n        \"descricao\": \"teste\",\n        \"preco\": 5.00,\n        \"imagemUrl\": \"teste.jpg\",\n        \"estoque\": 50,\n        \"dataCadastro\": \"2025-04-24T01:21:30.65\",\n        \"categoriaId\": 2\n        \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5109/api/Produtos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5109",
+							"path": [
+								"api",
+								"Produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AlteraProdutoPorId",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n        \"produtoId\": 3,\n        \"nome\": \"alterado\",\n        \"descricao\": \"alterado\",\n        \"preco\": 5.00,\n        \"imagemUrl\": \"alterado.jpg\",\n        \"estoque\": 50,\n        \"dataCadastro\": \"2025-04-24T01:21:30.65\",\n        \"categoriaId\": 1,\n        \"categoria\": null\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5109/api/Produtos/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5109",
+							"path": [
+								"api",
+								"Produtos",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeletaProdutoPorId",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5109/api/Produtos/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5109",
+							"path": [
+								"api",
+								"Produtos",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "crud do produto"
+		},
+		{
+			"name": "Categoria",
+			"item": [
+				{
+					"name": "ObterCategorias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5109/api/Categorias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5109",
+							"path": [
+								"api",
+								"Categorias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ObterCategoriaPorId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5109/api/Categorias/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5109",
+							"path": [
+								"api",
+								"Categorias",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CriarCategoria",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n     \n        \"nome\": \"categoria 2\",\n        \"imagemUrl\": \"categoria.jpg\"\n        \n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5109/api/Categorias/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5109",
+							"path": [
+								"api",
+								"Categorias",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AlteraCategoriaPorId",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"categoriaId\": 1,\n    \"nome\": \"Nome alterado\",\n    \"imagemUrl\": \"nomeAlterao.jpg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5109/api/Categorias/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5109",
+							"path": [
+								"api",
+								"Categorias",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCategoriaPorId",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5109/api/Categorias/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5109",
+							"path": [
+								"api",
+								"Categorias",
+								"11"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "crud categoria"
+		},
+		{
+			"name": "CategoriasProdutos",
+			"item": [
+				{
+					"name": "GetCategoriasProdutos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5109/api/Categorias/produtos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5109",
+							"path": [
+								"api",
+								"Categorias",
+								"produtos"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "get categorias/produtos"
+		}
+	]
+}
