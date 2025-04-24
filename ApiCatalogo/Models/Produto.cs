@@ -12,5 +12,9 @@ namespace ApiCatalogo.Models
         public float Estoque { get; set; }
         public DateTime DataCadastro { get; set; }
 
+        //o produto esta relacionado com uma categoria
+        public int CategoriaId { get; set; }
+        public Categoria? Categoria { get; set; }
+
     }
 }
