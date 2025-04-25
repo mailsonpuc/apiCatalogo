@@ -37,7 +37,7 @@ namespace ApiCatalogo.Controllers
         //api/categoria
         public ActionResult<IEnumerable<Categoria>> Get()
         {
-            var categorias = _context.Categorias.ToList();
+            var categorias = _context.Categorias.AsNoTracking().ToList();
             if (categorias is null)
             {
                 return NotFound("Categorias Não encontrado");
