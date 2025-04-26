@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using ApiCatalogo.Context;
+using ApiCatalogo.Filters;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,13 @@ builder.Services.AddSwaggerGen(); // Isso já é o suficiente, o AddOpenApi() n�
 // Configura o DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+
+//usando o filtro
+builder.Services.AddScoped<ApiLoggingFilter>();
+
+
 
 var app = builder.Build();
 

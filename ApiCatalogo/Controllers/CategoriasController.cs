@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApiCatalogo.Context;
+using ApiCatalogo.Filters;
 using ApiCatalogo.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,27 +24,40 @@ namespace ApiCatalogo.Controllers
         }
 
 
-        
+
 
         [HttpGet("produtos")]
         public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos()
         {
             return _context.Categorias.Include(p => p.Produtos).ToList();
         }
-        
+
 
 
         [HttpGet]
         //api/categoria
+        //usando o filtro no controle
+        [ServiceFilter(typeof(ApiLoggingFilter))]
         public ActionResult<IEnumerable<Categoria>> Get()
         {
-            var categorias = _context.Categorias.AsNoTracking().ToList();
-            if (categorias is null)
+            try
             {
-                return NotFound("Categorias Não encontrado");
+                //throw new Exception("ocorreu um erro");
+                var categorias = _context.Categorias.AsNoTracking().ToList();
+                if (categorias is null)
+                {
+                    return NotFound("Categorias Não encontrado");
+                }
+
+                return categorias;
+
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                "Ocorreu um problema ao tratar sua solicitação");
             }
 
-            return categorias;
         }
 
 
@@ -51,13 +65,23 @@ namespace ApiCatalogo.Controllers
         [HttpGet("{id:int}", Name = "ObterCategoria")]
         public ActionResult<Categoria> Get(int id)
         {
-            var categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId == id);
-            if (categoria is null)
+            try
             {
-                return NotFound("categoria não encontrado");
+                var categoria = _context.Categorias.AsNoTracking().FirstOrDefault(c => c.CategoriaId == id);
+                if (categoria is null)
+                {
+                    return NotFound($"categoria com id= {id} não encontrado");
+                }
+
+                return Ok(categoria);
             }
 
-            return Ok(categoria);
+            catch (System.Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                "Ocorreu um problema ao tratar sua solicitação");
+            }
 
         }
 
@@ -112,15 +136,15 @@ namespace ApiCatalogo.Controllers
             var categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId == id);
             if (categoria is null)
             {
-                return NotFound("categoria não localizado...");
+                return NotFound($"categoria com id= {id} não Localizada...");
 
             }
 
             _context.Categorias.Remove(categoria);
             _context.SaveChanges();
 
-            
-            return Ok("ok a categoria foi removido");
+
+            return Ok($"categoria com id= {id} removida");
         }
 
 
