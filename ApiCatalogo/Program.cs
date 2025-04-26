@@ -1,15 +1,23 @@
 using System.Text.Json.Serialization;
 using ApiCatalogo.Context;
 using ApiCatalogo.Filters;
+using ApiCatalogo.Logging;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adiciona os serviços ao container
-builder.Services.AddControllers()
-.AddJsonOptions(opt =>
-opt.JsonSerializerOptions
-.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+// Adiciona os serviços ao containe
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(typeof(ApiExceptionFilter));
+}).AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
+
+
+
 
 
 
@@ -25,6 +33,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 //usando o filtro
 builder.Services.AddScoped<ApiLoggingFilter>();
+
+//usando loggin e gravando  e um txt
+builder.Logging.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderConfiguration
+{
+    LogLevel = LogLevel.Information
+}));
 
 
 
