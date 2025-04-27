@@ -1,119 +1,118 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ApiCatalogo.Context;
 using ApiCatalogo.Models;
+using ApiCatalogo.Repositories;
+
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace ApiCatalogo.Controllers
+namespace APICatalogo.Controllers;
+
+[Route("[controller]")]
+[ApiController]
+public class ProdutosController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ProdutosController : ControllerBase
+    private readonly IProdutoRepository _produtoRepository;
+    private readonly IRepository<Produto> _repository;
+
+    public ProdutosController(IRepository<Produto> repository, IProdutoRepository produtoRepository)
     {
-        private readonly AppDbContext _context;
-
-        //construtor
-        public ProdutosController(AppDbContext context)
-        {
-            //injetendo a dependencia
-            _context = context;
-        }
-
-
-
-        [HttpGet]
-        //api/produto
-        public async Task<ActionResult<IEnumerable<Produto>>> Get()
-        {
-            //nao rastriada no cache AsNoTracking(), somente leitura
-            var produtos = await _context.Produtos.AsNoTracking().ToListAsync();
-            if (produtos is null)
-            {
-                return NotFound("Produtos Não encontrado");
-            }
-
-            return produtos;
-        }
-
-
-        [HttpGet("{id:int:min(1)}", Name = "ObterProduto")]
-        public async Task<ActionResult<Produto>> Get(int id)
-        {
-            var produto = await _context.Produtos.AsNoTracking().FirstOrDefaultAsync(p => p.ProdutoId == id);
-            if (produto is null)
-            {
-                return NotFound("Produto não encontrado");
-            }
-
-            return produto;
-
-        }
-
-
-
-
-        [HttpPost]
-        public ActionResult Post(Produto produto)
-        {
-            if (produto is null)
-            {
-                return BadRequest("Ocorreu um erro 400");
-            }
-
-            _context.Produtos.Add(produto);
-            _context.SaveChanges();
-
-            return new CreatedAtRouteResult("ObterProduto",
-            new { id = produto.ProdutoId }, produto);
-
-        }
-
-
-
-
-
-        [HttpPut("{id:int}")]
-        public ActionResult Put(int id, Produto produto)
-        {
-            if (id != produto.ProdutoId)
-            {
-                return BadRequest("Não encontrado");
-            }
-
-            _context.Entry(produto).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            _context.SaveChanges();
-
-            //return NoContent();
-            return Ok(produto);
-
-        }
-
-
-
-
-        [HttpDelete("{id:int}")]
-        public ActionResult Delete(int id)
-        {
-            var produto =  _context.Produtos.FirstOrDefault(p => p.ProdutoId ==id);
-            if(produto is null)
-            {
-                return NotFound("Produto não localizado...");
-
-            }
-
-            _context.Produtos.Remove(produto);
-            _context.SaveChanges();
-
-            //return Ok(produto);
-            return Ok("ok o produto foi removido");
-        }
-
-
-
-
-
+        _produtoRepository = produtoRepository;
+        _repository = repository;
     }
+
+
+
+
+    [HttpGet("produtos/{id}")]
+    public ActionResult<IEnumerable<Produto>> GetProdutosCategoria(int id)
+    {
+        var produtos = _produtoRepository.GetProdutosPorCategoria(id);
+
+        if (produtos is null)
+            return NotFound();
+
+        return Ok(produtos);
+    }
+
+
+
+
+    [HttpGet]
+    public ActionResult<IEnumerable<Produto>> Get()
+    {
+        var produtos = _repository.GetAll();
+        if (produtos is null)
+        {
+            return NotFound();
+        }
+        return Ok(produtos);
+    }
+
+
+
+
+
+    [HttpGet("{id}", Name = "ObterProduto")]
+    public ActionResult<Produto> Get(int id)
+    {
+        var produto = _repository.Get(c => c.ProdutoId == id);
+        if (produto is null)
+        {
+            return NotFound("Produto não encontrado...");
+        }
+        return Ok(produto);
+    }
+
+
+
+
+
+    [HttpPost]
+    public ActionResult Post(Produto produto)
+    {
+        if (produto is null)
+            return BadRequest();
+
+        var novoProduto = _repository.Create(produto);
+
+        return new CreatedAtRouteResult("ObterProduto",
+            new { id = novoProduto.ProdutoId }, novoProduto);
+    }
+
+
+
+
+
+
+    [HttpPut("{id:int}")]
+    public ActionResult Put(int id, Produto produto)
+    {
+        if (id != produto.ProdutoId)
+        {
+            return BadRequest();//400
+        }
+
+        var produtoAtualizado = _repository.Update(produto);
+
+        return Ok(produtoAtualizado);
+    }
+
+
+
+
+
+
+    [HttpDelete("{id:int}")]
+    public ActionResult Delete(int id)
+    {
+        var produto = _repository.Get(p => p.ProdutoId == id);
+        if (produto is null)
+        {
+            return NotFound("Produto não encontrado...");
+        }
+
+        var produtoDeletado = _repository.Delete(produto);
+        return Ok(produtoDeletado);
+    }
+
+
+
 }

@@ -3,6 +3,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ApiCatalogo.Models
 {
@@ -35,6 +36,7 @@ namespace ApiCatalogo.Models
 
 
         //uma categoria pode te um ou muitos produtos
+        [JsonIgnore]
         public ICollection<Produto>? Produtos { get; set; }
     }
 }
