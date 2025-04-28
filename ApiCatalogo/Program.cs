@@ -40,6 +40,10 @@ builder.Services.AddScoped<ApiLoggingFilter>();
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 
+//uniofwork
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
 //usando repository Generico
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
