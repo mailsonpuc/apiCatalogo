@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using ApiCatalogo.Context;
+using ApiCatalogo.DTOs.Mappings;
 using ApiCatalogo.Filters;
 using ApiCatalogo.Logging;
 using ApiCatalogo.Repositories;
@@ -46,6 +47,10 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 //usando repository Generico
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+
+//usando automapper
+builder.Services.AddAutoMapper(typeof(ProdutoDTOMappingProfile));
 
 
 
