@@ -418,3 +418,66 @@ Information: 20101 - Executed DbCommand (32ms) [Parameters=[], CommandType='Text
 SELECT [c].[CategoriaId], [c].[ImagemUrl], [c].[Nome]
 FROM [Categorias] AS [c]
 Information: 0 - Application is shutting down...
+Information: 14 - Now listening on: http://localhost:5109
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: /home/euSSD/apiCatalogo/ApiCatalogo
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 20101 - Executed DbCommand (85ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [c].[CategoriaId], [c].[ImagemUrl], [c].[Nome]
+FROM [Categorias] AS [c]
+Information: 20101 - Executed DbCommand (46ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[ProdutoId], [p].[CategoriaId], [p].[DataCadastro], [p].[Descricao], [p].[Estoque], [p].[ImagemUrl], [p].[Nome], [p].[Preco]
+FROM [Produtos] AS [p]
+Information: 20101 - Executed DbCommand (65ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [p].[ProdutoId], [p].[CategoriaId], [p].[DataCadastro], [p].[Descricao], [p].[Estoque], [p].[ImagemUrl], [p].[Nome], [p].[Preco]
+FROM [Produtos] AS [p]
+WHERE [p].[ProdutoId] = @__id_0
+Information: 20101 - Executed DbCommand (21ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [p].[ProdutoId], [p].[CategoriaId], [p].[DataCadastro], [p].[Descricao], [p].[Estoque], [p].[ImagemUrl], [p].[Nome], [p].[Preco]
+FROM [Produtos] AS [p]
+WHERE [p].[ProdutoId] = @__id_0
+Information: 20101 - Executed DbCommand (30ms) [Parameters=[@p1='?' (DbType = Int32), @p0='?' (DbType = Single)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [Produtos] SET [Estoque] = @p0
+OUTPUT 1
+WHERE [ProdutoId] = @p1;
+Information: 20101 - Executed DbCommand (10ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [p].[ProdutoId], [p].[CategoriaId], [p].[DataCadastro], [p].[Descricao], [p].[Estoque], [p].[ImagemUrl], [p].[Nome], [p].[Preco]
+FROM [Produtos] AS [p]
+WHERE [p].[ProdutoId] = @__id_0
+Information: 20101 - Executed DbCommand (33ms) [Parameters=[@p2='?' (DbType = Int32), @p0='?' (DbType = DateTime2), @p1='?' (DbType = Single)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [Produtos] SET [DataCadastro] = @p0, [Estoque] = @p1
+OUTPUT 1
+WHERE [ProdutoId] = @p2;
+Information: 0 - Application is shutting down...
+Information: 14 - Now listening on: http://localhost:5109
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: /home/euSSD/apiCatalogo/ApiCatalogo
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 20101 - Executed DbCommand (176ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [p].[ProdutoId], [p].[CategoriaId], [p].[DataCadastro], [p].[Descricao], [p].[Estoque], [p].[ImagemUrl], [p].[Nome], [p].[Preco]
+FROM [Produtos] AS [p]
+WHERE [p].[ProdutoId] = @__id_0
+Information: 20101 - Executed DbCommand (14ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [p].[ProdutoId], [p].[CategoriaId], [p].[DataCadastro], [p].[Descricao], [p].[Estoque], [p].[ImagemUrl], [p].[Nome], [p].[Preco]
+FROM [Produtos] AS [p]
+WHERE [p].[ProdutoId] = @__id_0
+Information: 20101 - Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [p].[ProdutoId], [p].[CategoriaId], [p].[DataCadastro], [p].[Descricao], [p].[Estoque], [p].[ImagemUrl], [p].[Nome], [p].[Preco]
+FROM [Produtos] AS [p]
+WHERE [p].[ProdutoId] = @__id_0
+Information: 20101 - Executed DbCommand (34ms) [Parameters=[@p2='?' (DbType = Int32), @p0='?' (DbType = DateTime2), @p1='?' (DbType = Single)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [Produtos] SET [DataCadastro] = @p0, [Estoque] = @p1
+OUTPUT 1
+WHERE [ProdutoId] = @p2;
+Information: 20101 - Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[ProdutoId], [p].[CategoriaId], [p].[DataCadastro], [p].[Descricao], [p].[Estoque], [p].[ImagemUrl], [p].[Nome], [p].[Preco]
+FROM [Produtos] AS [p]
+Information: 0 - Application is shutting down...

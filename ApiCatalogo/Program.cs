@@ -5,6 +5,7 @@ using ApiCatalogo.Filters;
 using ApiCatalogo.Logging;
 using ApiCatalogo.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,7 @@ builder.Services.AddControllers(options =>
 }).AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-});
+}).AddNewtonsoftJson();
 
 
 
