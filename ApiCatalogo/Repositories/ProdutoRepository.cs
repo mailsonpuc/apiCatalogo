@@ -2,6 +2,7 @@
 
 using ApiCatalogo.Context;
 using ApiCatalogo.Models;
+using ApiCatalogo.Pagination;
 
 namespace ApiCatalogo.Repositories
 {
@@ -11,7 +12,14 @@ namespace ApiCatalogo.Repositories
         {
         }
 
-
+        public IEnumerable<Produto> GetProdutos(ProdutosParameters produtosParames)
+        {
+            // throw new NotImplementedException();
+            return GetAll()
+            .OrderBy(p=> p.Nome)
+            .Skip((produtosParames.PageNumber - 1) * produtosParames.PageSize)
+            .Take(produtosParames.PageSize).ToList();
+        }
 
         public IEnumerable<Produto> GetProdutosPorCategoria(int id)
         {
