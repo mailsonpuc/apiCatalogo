@@ -12,7 +12,14 @@ namespace ApiCatalogo.Repositories
 
         PagedList<Produto> GetProdutos(ProdutosParameters produtosParams);
 
+
+
+        PagedList<Produto> GetProdutosFiltroPreco(ProdutosFiltroPreco produtosFiltroPreco);
+        
+
         IEnumerable<Produto> GetProdutosPorCategoria(int id);
+
+
 
 
     }
