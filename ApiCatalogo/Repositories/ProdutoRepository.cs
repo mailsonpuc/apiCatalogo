@@ -12,14 +12,29 @@ namespace ApiCatalogo.Repositories
         {
         }
 
-        public IEnumerable<Produto> GetProdutos(ProdutosParameters produtosParames)
+        // public IEnumerable<Produto> GetProdutos(ProdutosParameters produtosParames)
+        // {
+        //     // throw new NotImplementedException();
+        //     return GetAll()
+        //     .OrderBy(p=> p.Nome)
+        //     .Skip((produtosParames.PageNumber - 1) * produtosParames.PageSize)
+        //     .Take(produtosParames.PageSize).ToList();
+        // }
+
+
+        public PagedList<Produto> GetProdutos(ProdutosParameters produtosParams)
         {
-            // throw new NotImplementedException();
-            return GetAll()
-            .OrderBy(p=> p.Nome)
-            .Skip((produtosParames.PageNumber - 1) * produtosParames.PageSize)
-            .Take(produtosParames.PageSize).ToList();
+            var produtos = GetAll().OrderBy(p => p.ProdutoId).AsQueryable();
+
+            var produtosOrdenados = PagedList<Produto>.ToPagedList(produtos,
+                        produtosParams.PageNumber, produtosParams.PageSize);
+
+            return produtosOrdenados;
         }
+
+
+
+
 
         public IEnumerable<Produto> GetProdutosPorCategoria(int id)
         {
