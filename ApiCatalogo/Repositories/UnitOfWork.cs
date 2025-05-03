@@ -6,6 +6,8 @@ namespace ApiCatalogo.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
+
+
         private IProdutoRepository? _produtoRepo;
         private ICategoriaRepository? _categoriaRepo;
 
@@ -27,10 +29,6 @@ namespace ApiCatalogo.Repositories
                 //return _produtoRepo;
             }
         }
-
-
-
-
         public ICategoriaRepository CategoriaRepository
         {
             get
@@ -38,21 +36,15 @@ namespace ApiCatalogo.Repositories
                 return _categoriaRepo = _categoriaRepo ?? new CategoriaRepository(_context);
             }
         }
-
-
-        public void Commit()
+        public async Task Commit()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
-
-
 
         public void Dispose()
         {
             _context.Dispose();
         }
-
-
 
 
     }

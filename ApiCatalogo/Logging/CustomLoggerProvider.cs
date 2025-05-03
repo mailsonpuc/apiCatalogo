@@ -6,21 +6,15 @@ namespace ApiCatalogo.Logging
 {
     public class CustomLoggerProvider : ILoggerProvider
     {
-
         readonly CustomLoggerProviderConfiguration loggerConfig;
-
 
         readonly ConcurrentDictionary<string, CustomerLogger> loggers =
                    new ConcurrentDictionary<string, CustomerLogger>();
 
-
-
-        //construtor
         public CustomLoggerProvider(CustomLoggerProviderConfiguration config)
         {
             loggerConfig = config;
         }
-
         public ILogger CreateLogger(string categoryName)
         {
             return loggers.GetOrAdd(categoryName, name => new CustomerLogger(name, loggerConfig));
@@ -29,6 +23,7 @@ namespace ApiCatalogo.Logging
         {
             loggers.Clear();
         }
+
 
 
     }

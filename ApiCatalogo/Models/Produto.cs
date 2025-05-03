@@ -9,6 +9,7 @@ namespace ApiCatalogo.Models
     [Table("Produtos")]
     public class Produto
     {
+
         [Key]
         public int ProdutoId { get; set; }
 
@@ -19,7 +20,6 @@ namespace ApiCatalogo.Models
         [Required]
         [StringLength(300)]
         public string? Descricao { get; set; }
-
         [Required]
         [Column(TypeName = "decimal(10,2)")]
         public decimal Preco { get; set; }
@@ -27,16 +27,10 @@ namespace ApiCatalogo.Models
         [Required]
         [StringLength(300)]
         public string? ImagemUrl { get; set; }
-        
         public float Estoque { get; set; }
         public DateTime DataCadastro { get; set; }
-
-        //o produto esta relacionado com uma categoria
         public int CategoriaId { get; set; }
-
-        //ingore json
         [JsonIgnore]
         public Categoria? Categoria { get; set; }
-
     }
 }

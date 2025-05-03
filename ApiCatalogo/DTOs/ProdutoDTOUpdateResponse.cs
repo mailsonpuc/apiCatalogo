@@ -13,6 +13,5 @@ namespace ApiCatalogo.DTOs
         public DateTime DataCadastro { get; set; }
         public int CategoriaId { get; set; }
 
-
     }
 }

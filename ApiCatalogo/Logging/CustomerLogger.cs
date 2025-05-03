@@ -8,7 +8,6 @@ namespace ApiCatalogo.Logging
         readonly CustomLoggerProviderConfiguration loggerConfig;
 
 
-        //construtor
         public CustomerLogger(string name, CustomLoggerProviderConfiguration config)
         {
             loggerName = name;
@@ -16,22 +15,15 @@ namespace ApiCatalogo.Logging
         }
 
 
-
-
-
         public IDisposable BeginScope<TState>(TState state)
         {
             return null;
         }
 
-
-
         public bool IsEnabled(LogLevel logLevel)
         {
             return logLevel == loggerConfig.LogLevel;
         }
-
-
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state,
                 Exception exception, Func<TState, Exception, string> formatter)
@@ -40,9 +32,6 @@ namespace ApiCatalogo.Logging
 
             EscreverTextoNoArquivo(mensagem);
         }
-
-
-
 
         private void EscreverTextoNoArquivo(string mensagem)
         {
@@ -60,7 +49,6 @@ namespace ApiCatalogo.Logging
                 }
             }
         }
-
 
 
 

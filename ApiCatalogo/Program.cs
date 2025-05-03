@@ -10,23 +10,21 @@ using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 
 
-// Adiciona os serviços ao containe
+// Add services to the container.
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add(typeof(ApiExceptionFilter));
-}).AddJsonOptions(options =>
+})
+.AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-}).AddNewtonsoftJson();
+})
+.AddNewtonsoftJson();
 
-
-
-
-
-
-// Configura o Swagger/OpenAPI corretamente
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(); // Isso já é o suficiente, o AddOpenApi() não é necessário
+builder.Services.AddSwaggerGen();
+
+
 
 // Configura o DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -34,32 +32,19 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 
 
-//usando o filtro
 builder.Services.AddScoped<ApiLoggingFilter>();
 
-
-//usando repository
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
-
-//uniofwork
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-
-//usando repository Generico
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
-
-//usando automapper
-builder.Services.AddAutoMapper(typeof(ProdutoDTOMappingProfile));
-
-
-
-//usando loggin e gravando  e um txt
 builder.Logging.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderConfiguration
 {
     LogLevel = LogLevel.Information
 }));
+
+builder.Services.AddAutoMapper(typeof(ProdutoDTOMappingProfile));
 
 
 
