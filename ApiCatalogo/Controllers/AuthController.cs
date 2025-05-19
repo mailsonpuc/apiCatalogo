@@ -46,6 +46,7 @@ namespace ApiCatalogo.Controllers
         /// </summary>
         [HttpPost]
         [Route("CreateRole")]
+        [Authorize(Policy = "SuperAdminOnly")]
         public async Task<IActionResult> CreateRole(string roleName)
         {
             //indo na tabela
@@ -80,6 +81,7 @@ namespace ApiCatalogo.Controllers
         /// Adicionar usuario a uma  regrar - role.
         /// </summary>
         [HttpPost]
+        [Authorize(Policy = "SuperAdminOnly")]
         [Route("AddUserToRole")]
         public async Task<IActionResult> AddUserToRole(string email, string roleName)
         {
@@ -125,6 +127,7 @@ namespace ApiCatalogo.Controllers
             {
                 new Claim(ClaimTypes.Name, user.UserName!),
                 new Claim(ClaimTypes.Email, user.Email!),
+                 new Claim("id",user.UserName!),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             };
 
@@ -272,7 +275,7 @@ namespace ApiCatalogo.Controllers
         /// <summary>
         /// Revoga o refresh token de um usuário específico.
         /// </summary>
-        [Authorize]
+        [Authorize(Policy = "ExclusiveOnly")]
         [HttpPost]
         [Route("revoke/{username}")]
         public async Task<IActionResult> Revoke(string username)
