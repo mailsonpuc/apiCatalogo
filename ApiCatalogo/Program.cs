@@ -28,6 +28,21 @@ builder.Services.AddControllers(options =>
 })
 .AddNewtonsoftJson();
 
+
+var OrigensComAcessoPermitido = "_origensComAcessoPermitido";
+
+builder.Services.AddCors(options =>
+   options.AddPolicy(name: OrigensComAcessoPermitido,
+   policy =>
+   {
+       policy.WithOrigins("https://apirequest.io");
+   })
+);
+
+
+
+
+
 builder.Services.AddEndpointsApiExplorer();
 
 
@@ -108,25 +123,6 @@ builder.Services.AddAuthentication(options =>
 
 
 
-//autenticação baseado em politica
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
-
-    options.AddPolicy("SuperAdminOnly", policy =>
-                       policy.RequireRole("Admin").RequireClaim("id", "macoratti"));
-
-    options.AddPolicy("UserOnly", policy => policy.RequireRole("User"));
-
-    options.AddPolicy("ExclusiveOnly", policy =>
-                      policy.RequireAssertion(context => 
-                      context.User.HasClaim(claim =>
-                                           claim.Type == "id" && claim.Value == "macoratti") 
-                                           || context.User.IsInRole("SuperAdmin")));
-});
-
-
-
 
 builder.Services.AddScoped<ApiLoggingFilter>();
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
@@ -162,6 +158,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(OrigensComAcessoPermitido);
 app.UseAuthorization();
 
 app.MapControllers();
