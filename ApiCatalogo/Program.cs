@@ -9,6 +9,7 @@ using ApiCatalogo.Repositories;
 using ApiCatalogo.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -121,7 +122,20 @@ builder.Services.AddAuthentication(options =>
 
 
 
+//algoritmo de limitação de taxa request
+//pode fazer um request acada 5  segundos
+builder.Services.AddRateLimiter(rateLimiteOptions =>
+{
+    rateLimiteOptions.AddFixedWindowLimiter(policyName: "fixedwindow", options =>
+    {
+        options.PermitLimit = 1;
+        options.Window = TimeSpan.FromSeconds(5);
+        options.QueueLimit = 0;
 
+    });
+    rateLimiteOptions.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+});
 
 
 builder.Services.AddScoped<ApiLoggingFilter>();
@@ -158,6 +172,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+
+app.UseRateLimiter();
 app.UseCors(OrigensComAcessoPermitido);
 app.UseAuthorization();
 
